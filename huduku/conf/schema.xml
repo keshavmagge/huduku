@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="example" version="1.5">
+ <types>
+   <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true" omitNorms="true"/>
+   <fieldType name="tint" class="solr.TrieIntField" precisionStep="0" positionIncrementGap="0" sortMissingLast="true" omitNorms="true"/>
+   <fieldType name="tlong" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0" sortMissingLast="true" omitNorms="true"/>
+   <fieldType name="tfloat" class="solr.TrieFloatField" precisionStep="0" positionIncrementGap="0" sortMissingLast="true" omitNorms="true"/>
+   <fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
+    <fieldType name="text" class="solr.TextField">
+      <analyzer>
+        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+	    <filter class="solr.ASCIIFoldingFilterFactory"/>
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_en.txt" enablePositionIncrements="true"/>
+        <filter class="solr.WordDelimiterFilterFactory" catenateWords="1"/>
+        <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+        <filter class="solr.PorterStemFilterFactory"/>
+      </analyzer>
+    </fieldType>
+    <fieldType name="brand_name" class="solr.TextField">
+      <analyzer>
+        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.ASCIIFoldingFilterFactory"/>
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_en.txt" enablePositionIncrements="true"/>
+        <filter class="solr.WordDelimiterFilterFactory" catenateWords="1"/>
+      </analyzer>
+    </fieldType>
+  </types>
+
+  <fields>
+      <field name="_version_" type="tlong" indexed="true" stored="true" 
+          multiValued="false" />
+      <field name="id" type="string" indexed="true" stored="true"
+          required="true" multiValued="false" />
+      <field name="name" type="text" indexed="true" stored="true"
+          required="true" multiValued="false" />
+      <field name="description" type="text" indexed="true"
+          stored="true" required="false" multiValued="false" />
+      <field name="long_description" type="text" indexed="true"
+          stored="true" required="false" multiValued="false" />
+      <field name="brand" type="brand_name" indexed="true" stored="true"
+          required="false" multiValued="false" />
+      <field name="str_brand" type="string" indexed="true" stored="true"
+          required="false" multiValued="false" />
+      <field name="merchant" type="text" indexed="true" stored="true"
+          required="true" multiValued="false" />
+      <field name="str_merchant" type="string" indexed="true" stored="true"
+          required="true" multiValued="false" />
+      <field name="category" type="text" indexed="true" stored="true"
+          required="false" multiValued="false" />
+      <field name="str_category" type="string" indexed="true" stored="true"
+          required="false" multiValued="false" />
+      <field name="age" type="string" indexed="true" stored="true"
+          required="false" multiValued="false" />
+      <field name="gender" type="text" indexed="true" stored="true"
+          required="false" multiValued="false" />
+      <field name="price" type="tfloat" indexed="true" stored="true"
+          required="true" multiValued="false" />
+      <field name="sale_price" type="tfloat" indexed="true" stored="true"
+          required="false" multiValued="false" />
+      <field name="buy_url" type="string" indexed="true" stored="true"
+          required="false" multiValued="false" />
+      <field name="image" type="string" indexed="true" stored="true"
+          required="false" multiValued="false" />
+  </fields>
+
+  <uniqueKey>id</uniqueKey>
+  <defaultSearchField>name</defaultSearchField>
+  <solrQueryParser defaultOperator="AND"/>
+</schema>
