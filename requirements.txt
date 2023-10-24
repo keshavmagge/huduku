@@ -2,4 +2,4 @@ Django>=1.11.19
 psycopg2
 solrpy
 django-tastypie
-django-grappelli==2.5.2
+django-grappelli==2.15.2
